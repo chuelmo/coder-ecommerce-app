@@ -1,3 +1,7 @@
+# Segunda entrega - Crear un menú simple
+
+- Se crea una NavBar usando Material UI
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
