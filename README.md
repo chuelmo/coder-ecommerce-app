@@ -1,3 +1,8 @@
+# Tercer entrega - Crear 2 componentes
+
+- Componente CartWidget con un ícono, ubicado en el NavBar.
+- Componente ItemListContainer que recibe una prop 'greeting' y la muestra.
+
 # Segunda entrega - Crear un menú simple
 
 - Se crea una NavBar usando Material UI
