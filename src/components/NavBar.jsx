@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import CartWidget from './CartWidget';
 
 const pages = ['Computadoras', 'Notebooks', 'Monitores', 'Celulares'];
 
@@ -46,7 +47,7 @@ const NavBar = () => {
           >
             HR-Sales
           </Typography>
-
+          
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -83,6 +84,7 @@ const NavBar = () => {
               ))}
             </Menu>
           </Box>
+                  
           <ShoppingCartIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -113,6 +115,9 @@ const NavBar = () => {
               </Button>
             ))}
           </Box>
+          <Box sx={{ display: { xs: 'flex' } }}>
+            <CartWidget count={5}/>
+          </Box>  
         </Toolbar>
       </Container>
     </AppBar>
