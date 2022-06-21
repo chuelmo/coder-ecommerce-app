@@ -4,8 +4,8 @@ import Button from '@mui/material/Button';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
 
-export default function ItemCount({stock, onAdd}) {
-    const [count, setCount] = useState(0);
+export default function ItemCount({stock, initial, onAdd}) {
+    const [count, setCount] = useState(initial);
 
     const addProduct = () => {
         if (count < stock) {

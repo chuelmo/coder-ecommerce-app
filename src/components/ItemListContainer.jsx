@@ -43,7 +43,7 @@ export default function ItemListContainer({greeting, image, alt, stock, name}) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <ItemCount stock={stock} onAdd={onAdd}/>
+          <ItemCount stock={stock} initial={1} onAdd={onAdd}/>
         </CardActions>
       </Card>
     </>

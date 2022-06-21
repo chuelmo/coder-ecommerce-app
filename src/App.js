@@ -5,6 +5,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box"
 import iguana from './assets/img/reptile.jpg';
 import leones from './assets/img/leones.png';
+import canguro from './assets/img/canguro.jpg';
+import jirafa from './assets/img/jirafa.jpg';
+import hipo from './assets/img/hipo.jpg';
 
 const animales = [
   {
@@ -20,6 +23,27 @@ const animales = [
     alt: 'green iguana',
     greeting: 'Hola Iguana, no te preocupes, no voy a vender animales',
     stock: 3
+  },
+  {
+    name: 'Canguro',
+    image: canguro,
+    alt: 'canguro saltando',
+    greeting: 'Vivo en Australia y me desplazo saltando',
+    stock: 5
+  },
+  {
+    name: 'Jirafa',
+    image: jirafa,
+    alt: 'Una jirafa alta',
+    greeting: 'Soy el animal más alto del mundo',
+    stock: 2
+  },
+  {
+    name: 'Hipo',
+    image: hipo,
+    alt: 'gran hipopotamo',
+    greeting: 'Soy uno de los animales más grandes que existen y muy peligroso',
+    stock: 4
   }
 ];
 
