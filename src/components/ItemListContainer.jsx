@@ -1,51 +1,116 @@
-import React, {useState} from "react";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CardActions from '@mui/material/CardActions';
+import {useEffect, useState} from "react";
+import Box from "@mui/material/Box";
+import ItemList from "./ItemList";
+import leones from "../assets/img/leones.png";
+import iguana from "../assets/img/reptile.jpg";
+import canguro from "../assets/img/canguro.jpg";
+import jirafa from "../assets/img/jirafa.jpg";
+import hipo from "../assets/img/hipo.jpg";
+import ItemListLoader from "./ItemListLoader";
+import {Grow} from "@mui/material";
 import Typography from '@mui/material/Typography';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-import ItemCount from './ItemCount';
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
-export default function ItemListContainer({greeting, image, alt, stock, name}) {
-  const [message, setMessage] = useState(null);
-  
-  const onAdd = (cantidad) => {
-    if (cantidad > 0) {
-      setMessage(`Se ${cantidad === 1 ? 'agregó': 'agregaron'} ${cantidad} ${name} al carrito`);
+const products = [
+    {
+        id: 1,
+        name: "Leon",
+        pictureUrl: leones,
+        description: 'Los Leones son unos animales maravillosos y majestuosos',
+        stock: 5,
+        price: 999
+    },
+    {
+        id: 2,
+        name: "Iguana",
+        pictureUrl: iguana,
+        description: 'Hola Iguana, no te preocupes, no voy a vender animales',
+        stock: 3,
+        price: 670
+    },
+    {
+        id: 3,
+        name: "Canguro",
+        pictureUrl: canguro,
+        description: 'Vivo en Australia y me desplazo saltando',
+        stock: 5,
+        price: 340
+    },
+    {
+        id: 4,
+        name: "Jirafa",
+        pictureUrl: jirafa,
+        description: 'Soy el animal más alto del mundo',
+        stock: 2,
+        price: 245
+    },
+    {
+        id: 5,
+        name: "Hipo",
+        pictureUrl: hipo,
+        description: 'Soy uno de los animales más grandes que existen y muy peligroso',
+        stock: 4,
+        price: 200
     }
-  };
+];
 
-  return (
-    <>
-      {message && (
-        <Snackbar anchorOrigin={{vertical: 'top', horizontal: 'right'}} open={true} autoHideDuration={4000} onClose={() => setMessage(null)}>
-          <Alert onClose={() => setMessage(null)} severity="success" sx={{ width: '100%' }}>
-            {message}
-          </Alert>
-        </Snackbar>
-      )}
-      <Card sx={{ maxWidth: 345, minHeight: 350, maxHeight: 400 }}>
-        <CardMedia
-            component="img"
-            height="140"
-            image={image}
-            alt={alt}
-        />
-          <CardContent sx={{ minHeight: 80, maxHeight: 120 }}>
-            <Typography variant="body2" color="text.secondary">
-              {greeting}
-            </Typography>
-          </CardContent>
-          <CardActions disableSpacing>
-            <ItemCount stock={stock} initial={1} onAdd={onAdd}/>
-          </CardActions>
-        </Card>
-    </>
-  );
+export default function ItemListContainer({ greeting }) {
+    const [items, setItems] = useState();
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            new Promise((resolve, _reject) => {
+                resolve(products);
+            }).then(res => {
+                setItems(res)
+            }).then(() => setIsLoading(false));
+        }, 2500);
+    }, []);
+
+    return (
+      <>
+          {isLoading
+              ? <ItemListLoader amount={6} />
+              : items && (
+                  <>
+                      <Grow
+                          in={!isLoading}
+                          style={{ transformOrigin: '0 0 0' }}
+                          {...(!isLoading ? { timeout: 1000 } : {})}
+                      >
+                          <Box sx={{margin: "auto", justifyContent: 'space-evenly' }}>
+                          <div
+                                  style={{
+                                      backgroundColor: "white",
+                                      padding: "10px",
+                                      margin: "10px 0",
+                                      textAlign: "center",
+                                      borderRadius: "8px"
+                                  }}
+                              >
+                                  <Typography
+                                      variant="h4"
+                                      noWrap
+                                      component="a"
+                                      href="/"
+                                      sx={{
+                                          fontFamily: 'monospace',
+                                          fontWeight: 700,
+                                          letterSpacing: '.1rem',
+                                          color: 'inherit',
+                                          textDecoration: 'none',
+                                          textAlign: "center"
+                                      }}
+                                  >
+                                      {greeting}
+                                  </Typography>
+                              </div>
+                              <ItemList items={items} />
+                          </Box>
+                      </Grow>
+                  </>
+              )
+          }
+      </>
+    );
 }

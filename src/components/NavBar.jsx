@@ -40,7 +40,7 @@ const NavBar = () => {
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.15rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
@@ -97,7 +97,7 @@ const NavBar = () => {
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.15rem',
               color: 'inherit',
               textDecoration: 'none',
             }}

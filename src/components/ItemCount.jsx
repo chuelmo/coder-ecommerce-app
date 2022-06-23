@@ -28,7 +28,10 @@ export default function ItemCount({stock, initial, onAdd}) {
                     direction="row"
                     justifyContent="space-between"
                     alignItems="center"
-                    style={{ border: "1px solid grey" }}
+                    style={{
+                        border: "1px solid #93bae9",
+                        borderRadius: "4px"
+                    }}
                 >
                     <IconButton onClick={removeProduct} aria-label="delete">
                         <RemoveCircleOutlineOutlinedIcon />
@@ -39,13 +42,13 @@ export default function ItemCount({stock, initial, onAdd}) {
                     </IconButton>
                 </Grid>
             </Grid>
-            <Grid item mt={2} xs={12}
+            <Grid item mt={1} xs={12}
               container
               direction="row"
               justifyContent="center"
               alignItems="flex-end"
             >
-                <Button onClick={() => onAdd(count)} variant="outlined">Agregar al Carrito</Button>
+                <Button fullWidth onClick={() => onAdd(count)} variant="outlined">Agregar al Carrito</Button>
             </Grid>
         </Grid>
     );
