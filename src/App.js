@@ -1,4 +1,3 @@
-import './App.css';
 import NavBar from './components/NavBar';
 import ItemListContainer from './components/ItemListContainer';
 import Grid from "@mui/material/Grid";
@@ -8,6 +7,8 @@ import leones from './assets/img/leones.png';
 import canguro from './assets/img/canguro.jpg';
 import jirafa from './assets/img/jirafa.jpg';
 import hipo from './assets/img/hipo.jpg';
+import Container from "@mui/material/Container";
+import "./App.css";
 
 const animales = [
   {
@@ -51,16 +52,18 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <h2>Las ofertas de la semana</h2>
-      <Box sx={{ flexGrow: 1, margin: "auto", justifyContent: 'space-evenly' }}>
-        <Grid container spacing={2} direction="row" alignItems="flex-start">          
-          {animales.map((animal, index) => (
-            <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-              <ItemListContainer {...animal}/>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      <Container style={{ paddingBottom: "30px" }}>
+        <h2>Las ofertas de la semana</h2>
+        <Box sx={{ flexGrow: 1, margin: "auto", justifyContent: 'space-evenly' }}>
+          <Grid container spacing={2} direction="row" alignItems="flex-start">
+            {animales.map((animal, index) => (
+                <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+                  <ItemListContainer {...animal}/>
+                </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Container>
     </div>
   );
 }

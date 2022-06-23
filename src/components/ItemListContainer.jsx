@@ -30,22 +30,22 @@ export default function ItemListContainer({greeting, image, alt, stock, name}) {
           </Alert>
         </Snackbar>
       )}
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345, minHeight: 350, maxHeight: 400 }}>
         <CardMedia
-          component="img"
-          height="140"
-          image={image}
-          alt={alt}
+            component="img"
+            height="140"
+            image={image}
+            alt={alt}
         />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {greeting}
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <ItemCount stock={stock} initial={1} onAdd={onAdd}/>
-        </CardActions>
-      </Card>
+          <CardContent sx={{ minHeight: 80, maxHeight: 120 }}>
+            <Typography variant="body2" color="text.secondary">
+              {greeting}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <ItemCount stock={stock} initial={1} onAdd={onAdd}/>
+          </CardActions>
+        </Card>
     </>
   );
 }
