@@ -1,3 +1,11 @@
+# Entrega cd catálogo con Maps
+
+- Se agregan los componentes
+  - Item
+  - ItemList
+- Se crea el componente ItemListLoader para mostrar tarjetas "cargando..."
+- Se implementa un async mock para emular la carga de artículos desde un api.
+
 # Entrega del componente ItemCount
 
 - Se crea el componente ItemCount de acuerdo a la consigna
