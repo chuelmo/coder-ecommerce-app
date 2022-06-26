@@ -11,25 +11,10 @@ import hipo from "../assets/img/hipo.jpg";
 import ItemListLoader from "./ItemListLoader";
 import Layout from "./Layout";
 import { customTheme } from "../utils/theme";
-import { useParams } from 'react-router-dom';
-import CustomMessage from "../utils/CustomMessage";
-
-const categories = [
-    {
-        id: 1,
-        name: "Computadoras"
-    },
-    {
-        id: 2,
-        name: "Notebooks"
-    }
-]
-
 
 const products = [
     {
         id: 1,
-        category: 1,
         name: "Leon",
         pictureUrl: leones,
         description: 'Los Leones son unos animales maravillosos y majestuosos',
@@ -38,7 +23,6 @@ const products = [
     },
     {
         id: 2,
-        category: 1,
         name: "Iguana",
         pictureUrl: iguana,
         description: 'Hola Iguana, no te preocupes, no voy a vender animales',
@@ -47,7 +31,6 @@ const products = [
     },
     {
         id: 3,
-        category: 2,
         name: "Canguro",
         pictureUrl: canguro,
         description: 'Vivo en Australia y me desplazo saltando',
@@ -56,7 +39,6 @@ const products = [
     },
     {
         id: 4,
-        category: 2,
         name: "Jirafa",
         pictureUrl: jirafa,
         description: 'Soy el animal más alto del mundo',
@@ -65,7 +47,6 @@ const products = [
     },
     {
         id: 5,
-        category: 2,
         name: "Hipo",
         pictureUrl: hipo,
         description: 'Soy uno de los animales más grandes que existen y muy peligroso',
@@ -74,37 +55,19 @@ const products = [
     }
 ];
 
-export default function ItemListContainer({ greeting }) {
-    const params = useParams();
+export default function ItemDetailContainer({ greeting }) {
     const [items, setItems] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    const [message, setMessage] = useState(null);
-    const [title, setTitle] = useState(greeting);
 
     useEffect(() => {
         setTimeout(() => {
             new Promise((resolve, _reject) => {
-                if (params.id) {
-                    const idToInt = parseInt(params.id);
-                    const category = categories.find(c => c.id === idToInt);
-                    if (category) {
-                        setTitle(`Ofertas de la categoría ${category.name}`);
-                        resolve(products.filter(p => p.category === idToInt));
-                    } else {
-                        setMessage({
-                            msg: `No existe una categoría con el ID: ${params.id}`,
-                            severity: 'warning'
-                        });
-                        resolve(products);
-                    }
-                } else {
-                    resolve(products);
-                }
+                resolve(products);
             }).then(res => {
                 setItems(res)
             }).then(() => setIsLoading(false));
-        }, 2000);
-    }, [params.id]);
+        }, 2500);
+    }, []);
 
     return (
       <Layout>
@@ -112,12 +75,6 @@ export default function ItemListContainer({ greeting }) {
               ? <ItemListLoader amount={6} />
               : items && (
                   <>
-                    <CustomMessage
-                        message={message?.msg} 
-                        isOpen={message !== null}
-                        onClose={() => setMessage(null)}
-                        severity={message?.severity}
-                    />
                       <Grow
                           in={!isLoading}
                           style={{ transformOrigin: '0 0 0' }}
@@ -130,8 +87,7 @@ export default function ItemListContainer({ greeting }) {
                                       padding: "10px",
                                       margin: "10px 0",
                                       textAlign: "center",
-                                      borderRadius: "8px",
-                                      color: "white"
+                                      borderRadius: "8px"
                                   }}
                               >
                                   <Typography
@@ -148,7 +104,7 @@ export default function ItemListContainer({ greeting }) {
                                           textAlign: "center"
                                       }}
                                   >
-                                      {title}
+                                      {greeting}
                                   </Typography>
                               </div>
                               <ItemList items={items} />

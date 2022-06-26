@@ -5,32 +5,31 @@ import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import ItemCount from "./ItemCount";
 import Card from "@mui/material/Card";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import Chip from "@mui/material/Chip";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import {AttachMoney, InfoOutlined, InfoSharp} from "@mui/icons-material";
-import CustomMessage from "../utils/CustomMessage";
 
-export default function Item({id, name, description, price, pictureUrl, stock}) {
+export default function ItemDetail({id, name, description, price, pictureUrl, stock}) {
     const [message, setMessage] = useState(null);
 
     const onAdd = (amount) => {
         if (id && amount > 0) {
-            setMessage({
-                msg: `Se ${amount === 1 ? 'agregó': 'agregaron'} ${amount} ${name} al carrito`,
-                severity: 'success'
-            });
+            setMessage(`Se ${amount === 1 ? 'agregó': 'agregaron'} ${amount} ${name} al carrito`);
         }
     };
 
     return (
         <>
-            <CustomMessage 
-                message={message?.msg} 
-                isOpen={message !== null}
-                onClose={() => setMessage(null)}
-                severity={message?.severity}
-            />
+            {message && (
+                <Snackbar anchorOrigin={{vertical: 'top', horizontal: 'right'}} open={true} autoHideDuration={4000} onClose={() => setMessage(null)}>
+                    <Alert onClose={() => setMessage(null)} severity="success" sx={{ width: '100%' }}>
+                        {message}
+                    </Alert>
+                </Snackbar>
+            )}
             <Card sx={{ position: "relative", minHeight: 400, maxHeight: 450 }}>
                 <CardMedia
                     component="img"
