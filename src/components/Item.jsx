@@ -52,7 +52,7 @@ export default function Item({id, name, description, price, pictureUrl, stock}) 
                 </CardContent>
                 <CardActions disableSpacing>
                     <ItemCount stock={stock} initial={0} onAdd={onAdd} />
-                    <CustomIconDetail />
+                    <CustomIconDetail id={id} />
                 </CardActions>
             </Card>
         </>

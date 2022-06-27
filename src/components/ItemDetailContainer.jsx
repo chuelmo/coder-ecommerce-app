@@ -3,11 +3,6 @@ import Box from "@mui/material/Box";
 import {Grow} from "@mui/material";
 import Typography from '@mui/material/Typography';
 import ItemList from "./ItemList";
-import leones from "../assets/img/leones.png";
-import iguana from "../assets/img/reptile.jpg";
-import canguro from "../assets/img/canguro.jpg";
-import jirafa from "../assets/img/jirafa.jpg";
-import hipo from "../assets/img/hipo.jpg";
 import ItemListLoader from "./ItemListLoader";
 import Layout from "./Layout";
 import { customTheme } from "../utils/theme";
@@ -16,7 +11,7 @@ const products = [
     {
         id: 1,
         name: "Leon",
-        pictureUrl: leones,
+        pictureUrl: "http://localhost:3000/leones.jpg",
         description: 'Los Leones son unos animales maravillosos y majestuosos',
         stock: 5,
         price: 999
@@ -24,7 +19,7 @@ const products = [
     {
         id: 2,
         name: "Iguana",
-        pictureUrl: iguana,
+        pictureUrl: "http://localhost:3000/reptile.jpg",
         description: 'Hola Iguana, no te preocupes, no voy a vender animales',
         stock: 3,
         price: 670
@@ -32,7 +27,7 @@ const products = [
     {
         id: 3,
         name: "Canguro",
-        pictureUrl: canguro,
+        pictureUrl: "http://localhost:3000/canguro.jpg",
         description: 'Vivo en Australia y me desplazo saltando',
         stock: 5,
         price: 340
@@ -40,7 +35,7 @@ const products = [
     {
         id: 4,
         name: "Jirafa",
-        pictureUrl: jirafa,
+        pictureUrl: "http://localhost:3000/jirafa.jpg",
         description: 'Soy el animal más alto del mundo',
         stock: 2,
         price: 245
@@ -48,7 +43,7 @@ const products = [
     {
         id: 5,
         name: "Hipo",
-        pictureUrl: hipo,
+        pictureUrl: "http://localhost:3000/hipo.jpg",
         description: 'Soy uno de los animales más grandes que existen y muy peligroso',
         stock: 4,
         price: 200
