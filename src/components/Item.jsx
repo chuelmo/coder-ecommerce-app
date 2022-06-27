@@ -9,6 +9,7 @@ import Chip from "@mui/material/Chip";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import {AttachMoney, InfoOutlined, InfoSharp} from "@mui/icons-material";
+import {useNavigate} from "react-router-dom";
 import CustomMessage from "../utils/CustomMessage";
 
 export default function Item({id, name, description, price, pictureUrl, stock}) {
@@ -60,6 +61,12 @@ export default function Item({id, name, description, price, pictureUrl, stock}) 
 }
 
 function CustomIconDetail({ id }) {
+    const navigate = useNavigate();
+
+    const navigateToDetail = (id) => {
+        navigate('/item/' + id);
+    };
+    
     return (
         <>
             <div
@@ -70,7 +77,7 @@ function CustomIconDetail({ id }) {
                 }}
             >
                 <Tooltip title="Ver Detalles">
-                    <IconButton onClick={() => console.log(`Detalle id: ${id}`)} aria-label="delete">
+                    <IconButton onClick={() => navigateToDetail(id)} aria-label="delete">
                         <InfoSharp sx={{color: "green", fontSize: "40px"}}/>
                     </IconButton>
                 </Tooltip>
@@ -83,7 +90,7 @@ function CustomIconDetail({ id }) {
                 }}
             >
                 <Tooltip title="Ver Detalles">
-                    <IconButton onClick={() => console.log(`Detalle id: ${id}`)} aria-label="delete">
+                    <IconButton onClick={() => navigateToDetail(id)} aria-label="delete">
                         <InfoOutlined sx={{color: "white", fontSize: "40px"}}/>
                     </IconButton>
                 </Tooltip>
