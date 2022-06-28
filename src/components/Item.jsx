@@ -1,18 +1,20 @@
 import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
-import ItemCount from "./ItemCount";
 import Card from "@mui/material/Card";
 import Chip from "@mui/material/Chip";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
+import {Rating} from "@mui/material";
+import Box from "@mui/material/Box";
 import {AttachMoney, InfoOutlined, InfoSharp} from "@mui/icons-material";
-import {useNavigate} from "react-router-dom";
 import CustomMessage from "../utils/CustomMessage";
+import ItemCount from "./ItemCount";
 
-export default function Item({id, name, description, price, pictureUrl, stock}) {
+export default function Item({id, name, description, price, pictureUrl, stock, isDetail = true, rating }) {
     const [message, setMessage] = useState(null);
 
     const onAdd = (amount) => {
@@ -32,13 +34,24 @@ export default function Item({id, name, description, price, pictureUrl, stock}) 
                 onClose={() => setMessage(null)}
                 severity={message?.severity}
             />
-            <Card sx={{ position: "relative", minHeight: 400, maxHeight: 450 }}>
-                <CardMedia
-                    component="img"
-                    height="140"
-                    image={pictureUrl}
-                    alt={`${description}`}
-                />
+            <Card className={isDetail ? "" : "card"}>
+                {pictureUrl ? (
+                    <CardMedia
+                        component="img"
+                        height="140"
+                        image={pictureUrl}
+                        alt={`${description}`}
+                    />
+                ) : (
+                    <Typography
+                        variant="h4"
+                        color="text.secondary"
+                        style={{ marginTop: "10px" }}
+                    >
+                        {name}
+                    </Typography>
+                )}
+
                 <CardContent sx={{ minHeight: 120, maxHeight: 120 }}>
                     <Typography variant="body2" color="text.secondary">
                         {description}
@@ -50,10 +63,21 @@ export default function Item({id, name, description, price, pictureUrl, stock}) 
                             marginTop: "13px"
                         }}
                     />
+                    {rating && (
+                        <Box
+                            component="fieldset"
+                            mb={3}
+                            borderColor="transparent"
+                        >
+                            <Rating precision={0.5} name="read-only" value={rating} readOnly />
+                        </Box>
+                    )}
                 </CardContent>
                 <CardActions disableSpacing>
                     <ItemCount stock={stock} initial={0} onAdd={onAdd} />
-                    <CustomIconDetail id={id} />
+                    {!isDetail && (
+                        <CustomIconDetail id={id} />
+                    )}
                 </CardActions>
             </Card>
         </>

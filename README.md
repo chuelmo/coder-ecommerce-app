@@ -1,3 +1,12 @@
+# Entrega detalle del Producto
+
+- Se agregan los componentes:
+  - ItemDetailContainer
+  - ItemDetail
+- Se genera todo el catálogo con datos mockeados.
+- Se utiliza el .env para configurar posibles y diferentes rutas a las imágenes
+- Las rutas ya están funcionando y se explicarán en la próxima entrega
+
 # Entrega cd catálogo con Maps
 
 - Se agregan los componentes
