@@ -10,6 +10,9 @@
   min-height: 400;
   max-height: 450;
 }
+.cardDetail {
+  box-shadow: none !important;
+}
 
 .card:hover {
   transition: all 0.5s linear;

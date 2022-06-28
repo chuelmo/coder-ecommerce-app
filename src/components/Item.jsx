@@ -34,7 +34,7 @@ export default function Item({id, name, description, price, pictureUrl, stock, i
                 onClose={() => setMessage(null)}
                 severity={message?.severity}
             />
-            <Card className={isDetail ? "" : "card"}>
+            <Card className={isDetail ? "cardDetail" : "card"}>
                 {pictureUrl ? (
                     <CardMedia
                         component="img"

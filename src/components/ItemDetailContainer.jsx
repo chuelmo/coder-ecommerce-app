@@ -35,7 +35,7 @@ export default function ItemDetailContainer() {
                 navigate("/");
             }).then(() => setIsLoading(false));
         }, 1000);
-    }, [params.id]);
+    }, [params.id, navigate]);
 
     return (
       <Layout>
