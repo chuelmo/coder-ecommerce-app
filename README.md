@@ -1,3 +1,30 @@
+# Entrega intermedia del Proyecto Final
+
+En este README.md voy agregando la información de cada entrega al principio del mismo, tal cual entradadas de un blog, la última entrada o más nueva está arriba y la más vieja está abajo.
+
+- Dependencias:
+  - Material UI https://mui.com/material-ui/getting-started/overview/
+  - react-router-dom https://reactrouter.com/docs/en/v6/getting-started/overview
+  - react-image-gallery https://www.npmjs.com/package/react-image-gallery
+    - Se utiliza esta librería para mostrar imágenes del producto en el itemDetail
+- Rúbrica de la entrega
+  - **Componentes**
+  - [x] NavBar con CartWidget
+  - [x] Catálogo
+  - [x] Detalle del producto
+  - **Rutas a configurar**
+  - [x] '/' navega a &lt;ItemListContainer /&gt;
+  - [x] '/category/:id' &lt;ItemListContainer /&gt;
+  - [x] '/item/:id' navega a &lt;ItemDetailContainer /&gt;
+  - **Links a configurar**
+  - [x] Clickear en el brand debe navegar a '/'
+  - [x] Clickear un Item.js debe navegar a '/item/:id'
+  - [x] Clickear en una categoría del navbar debe navegar a '/category/:categoryId'
+  - **Funcionamiento**
+  - Se emula el asincronismo utilizando setTimeout y estados para mostrar un componente u otro según se esté "cargando" o no la info.
+- Animación gif para ver el funcionamiento del sitio
+  - [x] La animación se encuentra en: [PrimerEntregaPF.gif](https://drive.google.com/file/d/10XYUjUzZyuRfiKn1LBV8ys6ZbLU6TLUp/view?usp=sharing)
+
 # Entrega detalle del Producto
 
 - Se agregan los componentes:
