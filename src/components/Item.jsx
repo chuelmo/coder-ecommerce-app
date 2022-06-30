@@ -17,10 +17,10 @@ import ItemCount from "./ItemCount";
 export default function Item({id, name, description, price, pictureUrl, stock, isDetail = true, rating }) {
     const [message, setMessage] = useState(null);
 
-    const onAdd = (amount) => {
-        if (id && amount > 0) {
+    const onAdd = (quantity) => {
+        if (id && quantity > 0) {
             setMessage({
-                msg: `Se ${amount === 1 ? 'agregó': 'agregaron'} ${amount} ${name} al carrito`,
+                msg: `Se ${quantity === 1 ? 'agregó': 'agregaron'} ${quantity} ${name} al carrito`,
                 severity: 'success'
             });
         }
@@ -43,13 +43,22 @@ export default function Item({id, name, description, price, pictureUrl, stock, i
                         alt={`${description}`}
                     />
                 ) : (
-                    <Typography
-                        variant="h4"
-                        color="text.secondary"
-                        style={{ marginTop: "10px" }}
-                    >
-                        {name}
-                    </Typography>
+                    <>
+                        <Typography
+                            variant="h4"
+                            color="text.secondary"
+                            style={{ marginTop: "10px" }}
+                        >
+                            {name}
+                        </Typography>
+                        <Typography
+                            variant="h6"
+                            color="text.secondary"
+                            style={{ marginTop: "10px" }}
+                        >
+                            {`Hay ${stock} ${name} en stock`}
+                        </Typography>
+                    </>
                 )}
 
                 <CardContent sx={{ minHeight: 120, maxHeight: 120 }}>

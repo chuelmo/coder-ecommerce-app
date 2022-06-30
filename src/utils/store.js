@@ -76,7 +76,7 @@ export const products = [
     {
         id: 3,
         category: 2,
-        name: "Canguro",
+        name: "Notebook HP",
         pictureUrl: `${process.env.REACT_APP_URL_API_MS}/images/hp_1.webp`,
         description: 'Notebook HP 14-dk1022wm natural silver 14", AMD Ryzen 3 3250U 4GB de RAM 128GB SSD, AMD Radeon Vega 3 1366x768px Windows 10 Home',
         stock: 5,

@@ -48,7 +48,7 @@ export default function ItemListContainer({ greeting }) {
     return (
       <Layout>
           {isLoading
-              ? <ItemListLoader amount={6} />
+              ? <ItemListLoader quantity={6} />
               : items && (
                   <>
                     <CustomMessage
