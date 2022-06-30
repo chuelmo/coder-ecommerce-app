@@ -18,11 +18,13 @@ import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 import {Link} from "react-router-dom";
 import CartWidget from './CartWidget';
+import CartContext from '../context/CartContext';
 
 const NavBar = ({pages}) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+  const { totalItems } = React.useContext(CartContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -199,7 +201,7 @@ const NavBar = ({pages}) => {
             </Stack>
           </Box>
           <Box sx={{ display: { xs: 'flex' } }}>
-            <CartWidget count={5}/>
+            <CartWidget count={totalItems}/>
           </Box>  
         </Toolbar>
       </Container>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
@@ -15,16 +15,44 @@ import Box from "@mui/material/Box";
 import {AttachMoney, InfoOutlined, InfoSharp} from "@mui/icons-material";
 import CustomMessage from "../utils/CustomMessage";
 import ItemCount from "./ItemCount";
+import CartContext from "../context/CartContext";
 
 export default function Item({id, name, description, price, pictureUrl, stock, isDetail = true, rating }) {
+    const navigate = useNavigate();
+    const { addItem, getItem } = useContext(CartContext);
     const [message, setMessage] = useState(null);
+    const [realQuantity, setRealQuantity] = useState();
+
+    useEffect(() => {
+        setRealQuantity(getItem(id)?.quantity);
+    }, [getItem, id]);
 
     const onAdd = (quantity) => {
         if (id && quantity > 0) {
-            setMessage({
-                msg: `Se ${quantity === 1 ? 'agregó': 'agregaron'} ${quantity} ${name} al carrito`,
-                severity: 'success'
-            });
+            const item = getItem(id);
+            if (item) {
+                const totalQuantity = quantity + item.quantity;
+                if (totalQuantity <= stock) {
+                    addItem({ id, name, price, pictureUrl }, totalQuantity);
+                    setRealQuantity(totalQuantity);
+                    setMessage({
+                        msg: `Se ${quantity === 1 ? 'agregó': 'agregaron'} ${quantity} ${name} al carrito`,
+                        severity: 'success'
+                    });
+                } else {
+                    setMessage({
+                        msg: `Ya hay ${item.quantity} ${name} en el carrito, no hay suficiente stock para agregar más`,
+                        severity: 'error'
+                    });
+                }
+            } else {
+                addItem({ id, name, price, pictureUrl }, quantity);
+                setRealQuantity(quantity);
+                setMessage({
+                    msg: `Se ${quantity === 1 ? 'agregó': 'agregaron'} ${quantity} ${name} al carrito`,
+                    severity: 'success'
+                });
+            }
         }
     };
 
@@ -59,7 +87,10 @@ export default function Item({id, name, description, price, pictureUrl, stock, i
                             style={{ marginTop: "10px" }}
                         >
                             {`Hay ${stock} ${name} en stock`}
-                        </Typography>
+                            </Typography>
+                            {realQuantity && (
+                                <small>{`Hay en el carrito ${realQuantity} ${name}`}</small>
+                            )}
                     </>
                 )}
 
@@ -87,11 +118,11 @@ export default function Item({id, name, description, price, pictureUrl, stock, i
                 <CardActions disableSpacing>
                     <Grid container>
                         <Grid item xs={12}>
-                            <ItemCount stock={stock} initial={0} onAdd={onAdd} />    
+                            <ItemCount disabled={realQuantity === stock} stock={stock} initial={1} onAdd={onAdd} />    
                         </Grid>   
                         {isDetail && (
                             <Grid item mt={1} xs={12}>
-                                <Button fullWidth variant="contained">COMPRAR</Button>
+                                <Button onClick={() => navigate('/cart')} fullWidth variant="contained">COMPRAR</Button>
                             </Grid>
                         )}
                     </Grid>

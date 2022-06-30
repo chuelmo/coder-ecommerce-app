@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
 
-export default function ItemCount({stock, initial, onAdd}) {
+export default function ItemCount({stock, initial, onAdd, disabled}) {
     const [count, setCount] = useState(initial);
 
     const addProduct = () => {
@@ -48,7 +48,7 @@ export default function ItemCount({stock, initial, onAdd}) {
               justifyContent="center"
               alignItems="flex-end"
             >
-                <Button fullWidth onClick={() => onAdd(count)} variant="outlined">Agregar al Carrito</Button>
+                <Button disabled={disabled} fullWidth onClick={() => onAdd(count)} variant="outlined">Agregar al Carrito</Button>
             </Grid>
         </Grid>
     );
