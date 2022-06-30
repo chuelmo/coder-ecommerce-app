@@ -25,6 +25,11 @@ En este README.md voy agregando la información de cada entrega al principio del
 - Animación gif para ver el funcionamiento del sitio
   - [x] La animación se encuentra en: [PrimerEntregaPF.gif](https://drive.google.com/file/d/10XYUjUzZyuRfiKn1LBV8ys6ZbLU6TLUp/view?usp=sharing)
 
+**Nota:** Para correr esta app:
+
+- npm install
+- crear el archivo .env (en este caso basta con copiar o renombrar el archivo .env.example)
+
 <hr>
 
 # Entrega detalle del Producto

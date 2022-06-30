@@ -6,8 +6,10 @@ import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Card from "@mui/material/Card";
 import Chip from "@mui/material/Chip";
+import Button from '@mui/material/Button';
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
+import Grid from "@mui/material/Grid";
 import {Rating} from "@mui/material";
 import Box from "@mui/material/Box";
 import {AttachMoney, InfoOutlined, InfoSharp} from "@mui/icons-material";
@@ -83,7 +85,16 @@ export default function Item({id, name, description, price, pictureUrl, stock, i
                     )}
                 </CardContent>
                 <CardActions disableSpacing>
-                    <ItemCount stock={stock} initial={0} onAdd={onAdd} />
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <ItemCount stock={stock} initial={0} onAdd={onAdd} />    
+                        </Grid>   
+                        {isDetail && (
+                            <Grid item mt={1} xs={12}>
+                                <Button fullWidth variant="contained">COMPRAR</Button>
+                            </Grid>
+                        )}
+                    </Grid>
                     {!isDetail && (
                         <CustomIconDetail id={id} />
                     )}
