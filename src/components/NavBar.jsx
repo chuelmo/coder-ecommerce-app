@@ -200,9 +200,11 @@ const NavBar = ({pages}) => {
               </Popper>
             </Stack>
           </Box>
-          <Box sx={{ display: { xs: 'flex' } }}>
-            <CartWidget count={totalItems}/>
-          </Box>  
+          {(totalItems > 0) && (
+            <Box sx={{ display: { xs: 'flex' }, cursor: 'pointer' }}>
+              <CartWidget count={totalItems}/>
+            </Box>
+          )}        
         </Toolbar>
       </Container>
     </AppBar>

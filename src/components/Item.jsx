@@ -17,39 +17,39 @@ import CustomMessage from "../utils/CustomMessage";
 import ItemCount from "./ItemCount";
 import CartContext from "../context/CartContext";
 
-export default function Item({id, name, description, price, pictureUrl, stock, isDetail = true, rating }) {
+export default function Item({ itemDetail, isDetail = true }) {
     const navigate = useNavigate();
     const { addItem, getItem } = useContext(CartContext);
     const [message, setMessage] = useState(null);
     const [realQuantity, setRealQuantity] = useState();
 
     useEffect(() => {
-        setRealQuantity(getItem(id)?.quantity);
-    }, [getItem, id]);
+        setRealQuantity(getItem(itemDetail.id)?.quantity);
+    }, [getItem, itemDetail.id]);
 
     const onAdd = (quantity) => {
-        if (id && quantity > 0) {
-            const item = getItem(id);
+        if (itemDetail.id && quantity > 0) {
+            const item = getItem(itemDetail.id);
             if (item) {
                 const totalQuantity = quantity + item.quantity;
-                if (totalQuantity <= stock) {
-                    addItem({ id, name, price, pictureUrl }, totalQuantity);
+                if (totalQuantity <= itemDetail.stock) {
+                    addItem(itemDetail, totalQuantity);
                     setRealQuantity(totalQuantity);
                     setMessage({
-                        msg: `Se ${quantity === 1 ? 'agregó': 'agregaron'} ${quantity} ${name} al carrito`,
+                        msg: `Se ${quantity === 1 ? 'agregó': 'agregaron'} ${quantity} ${itemDetail.name} al carrito`,
                         severity: 'success'
                     });
                 } else {
                     setMessage({
-                        msg: `Ya hay ${item.quantity} ${name} en el carrito, no hay suficiente stock para agregar más`,
+                        msg: `Ya hay ${item.quantity} ${itemDetail.name} en el carrito, no hay suficiente stock para agregar más`,
                         severity: 'error'
                     });
                 }
             } else {
-                addItem({ id, name, price, pictureUrl }, quantity);
+                addItem(itemDetail, quantity);
                 setRealQuantity(quantity);
                 setMessage({
-                    msg: `Se ${quantity === 1 ? 'agregó': 'agregaron'} ${quantity} ${name} al carrito`,
+                    msg: `Se ${quantity === 1 ? 'agregó': 'agregaron'} ${quantity} ${itemDetail.name} al carrito`,
                     severity: 'success'
                 });
             }
@@ -65,12 +65,12 @@ export default function Item({id, name, description, price, pictureUrl, stock, i
                 severity={message?.severity}
             />
             <Card className={isDetail ? "cardDetail" : "card"}>
-                {pictureUrl ? (
+                {!isDetail ? (
                     <CardMedia
                         component="img"
                         height="140"
-                        image={pictureUrl}
-                        alt={`${description}`}
+                        image={itemDetail.pictureUrl}
+                        alt={`${itemDetail.description}`}
                     />
                 ) : (
                     <>
@@ -79,46 +79,46 @@ export default function Item({id, name, description, price, pictureUrl, stock, i
                             color="text.secondary"
                             style={{ marginTop: "10px" }}
                         >
-                            {name}
+                            {itemDetail.name}
                         </Typography>
                         <Typography
                             variant="h6"
                             color="text.secondary"
                             style={{ marginTop: "10px" }}
                         >
-                            {`Hay ${stock} ${name} en stock`}
+                            {`Hay ${itemDetail.stock} ${itemDetail.name} en stock`}
                             </Typography>
                             {realQuantity && (
-                                <small>{`Hay en el carrito ${realQuantity} ${name}`}</small>
+                                <small>{`Hay en el carrito ${realQuantity} ${itemDetail.name}`}</small>
                             )}
                     </>
                 )}
 
                 <CardContent sx={{ minHeight: 120, maxHeight: 120 }}>
                     <Typography variant="body2" color="text.secondary">
-                        {description}
+                        {itemDetail.description}
                     </Typography>
                     <Chip
                         icon={<AttachMoney />}
-                        label={price}
+                        label={itemDetail.price}
                         style={{
                             marginTop: "13px"
                         }}
                     />
-                    {rating && (
+                    {isDetail && (
                         <Box
                             component="fieldset"
                             mb={3}
                             borderColor="transparent"
                         >
-                            <Rating precision={0.5} name="read-only" value={rating} readOnly />
+                            <Rating precision={0.5} name="read-only" value={itemDetail.rating} readOnly />
                         </Box>
                     )}
                 </CardContent>
                 <CardActions disableSpacing>
                     <Grid container>
                         <Grid item xs={12}>
-                            <ItemCount disabled={realQuantity === stock} stock={stock} initial={1} onAdd={onAdd} />    
+                            <ItemCount disabled={realQuantity === itemDetail.stock} stock={itemDetail.stock} initial={1} onAdd={onAdd} />
                         </Grid>   
                         {isDetail && (
                             <Grid item mt={1} xs={12}>
@@ -127,7 +127,7 @@ export default function Item({id, name, description, price, pictureUrl, stock, i
                         )}
                     </Grid>
                     {!isDetail && (
-                        <CustomIconDetail id={id} />
+                        <CustomIconDetail id={itemDetail.id} />
                     )}
                 </CardActions>
             </Card>

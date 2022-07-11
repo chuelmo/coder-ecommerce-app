@@ -1,3 +1,19 @@
+# Desafío CartView
+
+- Tengo implementado React Context
+- Está agregada la ruta /cart al BrowserRouter
+- El componente CartWidget es reactivo al contexto
+- Hice el deploy en Vercel
+- Cart contiene el desglose de la compra agrupada por categorías.
+- Cart muestra el precio total
+- Cart agrupa los items por categoría
+- Cart muestra un mensaje de que el carrito está vacío y redirige a "/"
+- CartWidget muestra la cantidad de items comprados y redirige a /cart
+- CartWidget no se renderiza cuando el carrito está vacío.
+- El botón de comprar (que redirige a /Cart) está siempre visible (porque me gusta más).
+- En el carrito (/Cart) hay un botón que vacía el carro.
+- Se cumple la rúbrica
+
 # Entrega intermedia del Proyecto Final
 
 En este README.md voy agregando la información de cada entrega al principio del mismo, tal cual entradas de un blog, la última entrada o más nueva está arriba y la más vieja está abajo.

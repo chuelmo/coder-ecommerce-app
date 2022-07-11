@@ -21,8 +21,7 @@ export default function ItemDetail({item}) {
                 <Grid item xs={12} md={6}>
                     <Box>
                         <Item
-                            {...item}
-                            pictureUrl={undefined}
+                            itemDetail={item}
                             isDetail={true}
                         />
                     </Box>

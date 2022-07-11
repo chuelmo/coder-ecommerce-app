@@ -7,7 +7,7 @@ const CustomCartContext = ({ children }) => {
 
     const addItem = (item, quantity) => {
         const findItem = items.find(i => i.item.id === item.id);
-        setTotalItems(prevState => findItem 
+        setTotalItems(prevState => findItem
             ? prevState + (quantity - findItem.quantity)
             : prevState + quantity
         );
@@ -29,6 +29,25 @@ const CustomCartContext = ({ children }) => {
         });
     };
 
+    const subtractItem = (itemId) => {
+        const item = getItem(itemId);
+        if (item) {
+            setTotalItems(prevState => prevState - 1);
+            setItems(prevState => {
+                return prevState.map((i) => {
+                    if (i.item.id === itemId) {
+                        return {
+                            ...i,
+                            quantity: i.quantity - 1
+                        };
+                    } else {
+                        return i;
+                    }
+                });
+            });
+        }
+    };
+
     const removeItem = (itemId) => {
         const item = getItem(itemId);
         if (item) {
@@ -44,17 +63,17 @@ const CustomCartContext = ({ children }) => {
 
     const isInCart = (itemId) => {
         return items.some(i => i.item.id === itemId);
-    }
+    };
 
     const getItem = (itemId) => {
         return items.find(i => i.item.id === itemId);
-    }
+    };
 
     return (
-        <CartContext.Provider value={{items, totalItems, isInCart, addItem, removeItem, clear, getItem}}>
+        <CartContext.Provider value={{items, totalItems, isInCart, addItem, subtractItem, removeItem, clear, getItem}}>
             {children}
         </CartContext.Provider>
-    )
+    );
 };
 
 export default CustomCartContext;

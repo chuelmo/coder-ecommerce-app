@@ -7,7 +7,7 @@ export default function ItemList({ items }) {
         <Grid container spacing={2} direction="row" alignItems="flex-start">
             {items.map((item, index) => (
                 <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-                    <Item {...item} isDetail={false} rating={undefined} />
+                    <Item itemDetail={item} isDetail={false} />
                 </Grid>
             ))}
         </Grid>

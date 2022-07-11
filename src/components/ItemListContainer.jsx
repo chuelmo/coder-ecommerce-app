@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import {Grow} from "@mui/material";
 import Typography from '@mui/material/Typography';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import ItemList from "./ItemList";
 import { ItemListLoader } from "../utils/CustomLoaders";
 import Layout from "./Layout";
@@ -12,12 +12,19 @@ import { categories, products } from "../utils/store";
 
 export default function ItemListContainer({ greeting }) {
     const params = useParams();
+    const { state } = useLocation();
     const [items, setItems] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [message, setMessage] = useState(null);
     const [title, setTitle] = useState(greeting);
 
     useEffect(() => {
+        if (state?.emptyCart) {
+            setMessage({
+                msg: 'El carrito está vacío',
+                severity: 'warning'
+            });
+        }
         setIsLoading(true);
         setTimeout(() => {
             new Promise((resolve, _reject) => {
@@ -43,20 +50,20 @@ export default function ItemListContainer({ greeting }) {
                 setItems(res)
             }).then(() => setIsLoading(false));
         }, 2000);
-    }, [params.id]);
+    }, [params.id, state]);
 
     return (
       <Layout>
+        <CustomMessage
+            message={message?.msg} 
+            isOpen={message !== null}
+            onClose={() => setMessage(null)}
+            severity={message?.severity}
+        />
           {isLoading
               ? <ItemListLoader quantity={6} />
               : items && (
                   <>
-                    <CustomMessage
-                        message={message?.msg} 
-                        isOpen={message !== null}
-                        onClose={() => setMessage(null)}
-                        severity={message?.severity}
-                    />
                       <Grow
                           in={!isLoading}
                           style={{ transformOrigin: '0 0 0' }}
