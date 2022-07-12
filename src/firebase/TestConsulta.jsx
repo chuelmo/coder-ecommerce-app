@@ -33,7 +33,7 @@ export default function TestConsulta() {
 
     return (
         <Layout>
-            <div>Consultar un solo producto</div>
+            <div>Consultar un solo producto (testing)</div>
             {product && (
                 <div>
                     <p>id: {product.id}</p>
@@ -45,7 +45,7 @@ export default function TestConsulta() {
                             component="img"
                             height="140"
                             image={`${publicUrl}${product.pictureUrl}?alt=media`}
-                            alt="green iguana"
+                            alt={product.name}
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">

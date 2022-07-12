@@ -20,7 +20,7 @@ export default function TestConsultaAll() {
 
     return (
         <Layout>
-            <div>Consultar todas las categorías</div>
+            <div>Consultar todas las categorías (testing)</div>
             {categories && (
                 <Grid container spacing={2} direction="row" alignItems="flex-start">
                     {categories.map((item, index) => (
