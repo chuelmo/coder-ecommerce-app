@@ -449,19 +449,19 @@ export const products = [
         articleImages: [
             {
                 original: `${process.env.REACT_APP_URL_API_MS}/images/galaxya32_1.webp`,
-                thumbnail: `${process.env.REACT_APP_URL_API_MS}/images//galaxya32_i_1.webp`
+                thumbnail: `${process.env.REACT_APP_URL_API_MS}/images/galaxya32_i_1.webp`
             },
             {
                 original: `${process.env.REACT_APP_URL_API_MS}/images/galaxya32_2.webp`,
-                thumbnail: `${process.env.REACT_APP_URL_API_MS}/images//galaxya32_i_2.webp`
+                thumbnail: `${process.env.REACT_APP_URL_API_MS}/images/galaxya32_i_2.webp`
             },
             {
                 original: `${process.env.REACT_APP_URL_API_MS}/images/galaxya32_3.webp`,
-                thumbnail: `${process.env.REACT_APP_URL_API_MS}/images//galaxya32_i_3.webp`
+                thumbnail: `${process.env.REACT_APP_URL_API_MS}/images/galaxya32_i_3.webp`
             },
             {
                 original: `${process.env.REACT_APP_URL_API_MS}/images/galaxya32_4.webp`,
-                thumbnail: `${process.env.REACT_APP_URL_API_MS}/images//galaxya32_i_4.webp`
+                thumbnail: `${process.env.REACT_APP_URL_API_MS}/images/galaxya32_i_4.webp`
             }
         ]
     },
