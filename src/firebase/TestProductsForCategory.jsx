@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo } from 'react';
-import { collection, getFirestore, query, where, getDocs } from 'firebase/firestore';
-import { getStorage, ref} from "firebase/storage";
+import React, {useEffect} from 'react';
+import {collection, getDocs, getFirestore, query, where} from 'firebase/firestore';
+import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import Grid from "@mui/material/Grid";
 import CardMedia from "@mui/material/CardMedia";
 import Card from "@mui/material/Card";
@@ -9,27 +9,45 @@ import Layout from '../components/Layout';
 export default function TestProductsForCategory() {
     const [products, setProducts] = React.useState(null);
     const storage = getStorage();
-    const imagesRef = ref(storage, 'images');
-
-    const publicUrl = useMemo(() => {
-        return `https://firebasestorage.googleapis.com/v0/b/${imagesRef.bucket}/o/images%2F`;
-    }, [imagesRef]);
 
     useEffect(() => {
         const db = getFirestore();
         const items = collection(db, "products");
         const q = query(items, where("category", "==", "xGmOb5KVfg4I7CgmIX3m"));
-        getDocs(q).then(res => {
+        getDocs(q).then(async res => {
             if (res.size === 0) {
                 console.log("No hay artículos en esa categoría");
             } else {
-                console.log("Se encontraron artículos!!");
-                setProducts(res.docs.map(doc => ({
-                    id: doc.id, ...doc.data()
-                })));
+                const products = await Promise.all(
+                    res.docs.map(async (doc) => {
+                        const pictureRef = ref(storage, `images/${doc.data().pictureUrl}`);
+                        try {
+                            const image = await getDownloadURL(pictureRef);
+                            const articleImages = await Promise.all(
+                                 doc.data().articleImages.map(async (image) => {
+                                    const originalRef = ref(storage, `images/${image.original}`);
+                                    const thumbnailRef = ref(storage, `images/${image.thumbnail}`);
+                                    try {
+                                        const original = await getDownloadURL(originalRef);
+                                        const thumbnail = await getDownloadURL(thumbnailRef);
+                                        return { original, thumbnail };
+                                    } catch (_err) {
+                                        return null;
+                                    }
+                                })
+                            );
+                            return { ...doc.data(), id: doc.id, pictureUrl: image, articleImages };
+                        } catch (_err) {
+                            return { ...doc.data(), id: doc.id };
+                        }
+                    })
+                );
+                setProducts(products);
             }
         });
-    }, []);
+    }, [storage]);
+
+    console.log(products);
 
     return (
         <Layout>
@@ -46,7 +64,7 @@ export default function TestProductsForCategory() {
                                 <CardMedia
                                     component="img"
                                     height="140"
-                                    image={`${publicUrl}${item.pictureUrl}?alt=media`}
+                                    image={item.pictureUrl}
                                     alt={item.name}
                                 />
                             </Card>
@@ -57,4 +75,3 @@ export default function TestProductsForCategory() {
         </Layout>
     );
 }
-
