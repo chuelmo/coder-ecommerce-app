@@ -19,7 +19,7 @@ import {AddCircleOutlined, DeleteForeverOutlined, RemoveCircleOutlined} from "@m
 import Layout from "./Layout";
 import { customTheme } from "../utils/theme";
 import CartContext from "../context/CartContext";
-import {categories} from "../utils/store";
+import CategoryContext from "../context/CategoryContext";
 
 function Row(props) {
     const { addItem, removeItem, subtractItem } = useContext(CartContext);
@@ -163,6 +163,7 @@ function ClearCart({handleClick}) {
 const Cart = () => {
     const navigate = useNavigate();
     const { items, clear } = useContext(CartContext);
+    const { categories } = useContext(CategoryContext);
 
     useEffect(() => {
         if (!items || (items && items.length === 0)) {
@@ -176,7 +177,7 @@ const Cart = () => {
             categoriesIds.add(i.item.category);
         })
         return categories.filter(c => categoriesIds.has(c.id));
-    }, [items]);
+    }, [items, categories]);
 
     const total = useMemo(() => {
         let result = 0;

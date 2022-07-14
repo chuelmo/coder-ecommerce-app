@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
-import {useNavigate, useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import Box from "@mui/material/Box";
 import {Grow} from "@mui/material";
 import Typography from '@mui/material/Typography';
@@ -7,7 +8,6 @@ import Layout from "./Layout";
 import { customTheme } from "../utils/theme";
 import CustomMessage from "../utils/CustomMessage";
 import ItemDetail from "./ItemDetail";
-import {products} from "../utils/store";
 import { ItemDetailLoader } from "../utils/CustomLoaders";
 
 export default function ItemDetailContainer() {
@@ -19,22 +19,20 @@ export default function ItemDetailContainer() {
 
     useEffect(() => {
         setIsLoading(true);
-        setTimeout(() => {
-            new Promise((resolve, reject) => {
-                if (params.id) {
-                    const idToInt = parseInt(params.id);
-                    const article = products.find(p => p.id === idToInt);
-                    if (article) {
-                        resolve(article);
-                    }
+        if (params.id) {
+            const db = getFirestore();
+            const prodRef = doc(db, "products", params.id);
+            getDoc(prodRef).then((response) => {
+                if (response.exists()) {
+                    setItem({ id: response.id, ...response.data() });
+                } else {
+                    navigate("/");
                 }
-                reject();
-            }).then(res => {
-                setItem(res);
-            }, () => {
-                navigate("/");
-            }).then(() => setIsLoading(false));
-        }, 1000);
+                setIsLoading(false);
+            });
+        } else {
+            setIsLoading(false);
+        }
     }, [params.id, navigate]);
 
     return (

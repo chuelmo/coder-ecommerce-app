@@ -1,16 +1,18 @@
 import {useEffect, useState} from "react";
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
+import { collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
 import Box from "@mui/material/Box";
 import {Grow} from "@mui/material";
 import Typography from '@mui/material/Typography';
-import { useLocation, useParams } from 'react-router-dom';
 import ItemList from "./ItemList";
 import { ItemListLoader } from "../utils/CustomLoaders";
 import Layout from "./Layout";
 import { customTheme } from "../utils/theme";
 import CustomMessage from "../utils/CustomMessage";
-import { categories, products } from "../utils/store";
 
 export default function ItemListContainer({ greeting }) {
+    const db = getFirestore();
+    const navigate = useNavigate();
     const params = useParams();
     const { state } = useLocation();
     const [items, setItems] = useState();
@@ -18,39 +20,64 @@ export default function ItemListContainer({ greeting }) {
     const [message, setMessage] = useState(null);
     const [title, setTitle] = useState(greeting);
 
-    useEffect(() => {
-        if (state?.emptyCart) {
-            setMessage({
-                msg: 'El carrito está vacío',
-                severity: 'warning'
-            });
-        }
-        setIsLoading(true);
-        setTimeout(() => {
-            new Promise((resolve, _reject) => {
-                if (params.id) {
-                    const idToInt = parseInt(params.id);
-                    const category = categories.find(c => c.id === idToInt);
-                    if (category) {
-                        setTitle(`Ofertas de la categoría ${category.name}`);
-                        resolve(products.filter(p => p.category === idToInt));
+    useEffect( () => {
+        const get = async () => {
+            if (state?.emptyCart) {
+                setMessage({
+                    msg: 'El carrito está vacío',
+                    severity: 'warning'
+                });
+            }
+            setIsLoading(true);
+            const productsRef = collection(db, "products");
+            let q = query(productsRef);
+            if (params.id) {
+                const cat = doc(db, "categories", params.id);
+                try {
+                    const response = await getDoc(cat);
+                    if (response.exists()) {
+                        setTitle(`Ofertas de la categoría ${response.data().name}`);
+                        q = query(productsRef, where("category", "==", params.id));
                     } else {
                         setMessage({
-                            msg: `No existe una categoría con el ID: ${params.id}`,
+                            msg: 'No se encontró la categoría.',
                             severity: 'warning'
                         });
-                        setTitle("Ofertas de la semana");
-                        resolve(products);
+                        navigate("/");
                     }
-                } else {
-                    setTitle("Ofertas de la semana");
-                    resolve(products);
+                } catch(_erro) {
+                    setMessage({
+                        msg: 'Ocurrió un error al buscar la categoría.',
+                        severity: 'error'
+                    });
+                    navigate("/");
                 }
-            }).then(res => {
-                setItems(res)
-            }).then(() => setIsLoading(false));
-        }, 2000);
-    }, [params.id, state]);
+            }
+            try {
+                const response = await getDocs(q);
+                if (response.size === 0) {
+                    setMessage({
+                        msg: 'No hay productos en esa categoría.',
+                        severity: 'warning'
+                    });
+                    navigate("/");
+                } else {
+                    setItems(response.docs.map((product) => ({
+                        ...product.data(),
+                        id: product.id
+                    })));
+                }
+            } catch(_erro) {
+                setMessage({
+                    msg: 'Ocurrió un error al buscar la categoría.',
+                    severity: 'error'
+                });
+                navigate("/");
+            }
+        }
+        get().then(() => setIsLoading(false));
+    }, [params.id, state, db, navigate]);
+
 
     return (
       <Layout>
