@@ -1,3 +1,24 @@
+# Desafío itemCollection (Firebase)
+
+- Se crea la cuenta en Firebase
+- Se utilizan los archivos .env y .env.develop para aislar las configuraciones y mantener configuraciones distintas para desarrollo y producción.
+- En Firebase se crean 2 colections:
+  - categories
+  - products
+- En el código se hacen diferentes tipos de consultas:
+  - Consulta de toda una colección sin filtros (categories)
+  - Consulta de una colección con filtros (products by category)
+  - Consulta de un solo documento (products by id)
+- Se eliminan todos los mocks, ya no hay datos mockeados en el código.
+- Con un componente que no pushié cree toda la data en firebase tomando la data de los mocks.
+- Navegar a "/" consulta toda la colección de products (como prueba de concepto porque tengo muy pocos productos, se debería limitar)
+- Navegar a "/category/:id" consulta la colección products filtrada por category
+- Navegar a "/item/:id" consulta por un solo producto.
+- Se deploya la app tanto en Firebase como en Vercel
+  - https://coder-ecommerce-app.vercel.app/
+  - https://chuelmo-coder-react-37750.web.app/
+- Se crea otro contexto CategoryContext que envuelve a toda la aplicación, para consultar las categorías una sola vez, así se puede armar el menú dinámicamente y también es usado en el /cart
+
 # Desafío CartView
 
 - Tengo implementado React Context
