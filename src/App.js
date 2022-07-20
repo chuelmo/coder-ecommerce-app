@@ -10,6 +10,7 @@ import ItemDetailContainer from "./components/ItemDetailContainer";
 import CustomCartContext from "./context/CustomCartContext";
 import Cart from "./components/Cart";
 import CustomCategoryContext from "./context/CustomCategoryContext";
+import Checkout from "./components/Checkout";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                         <Route path="/category/:id" element={<ItemListContainer greeting={"Ofertas para una categoría"} />} />
                         <Route path="/item/:id" element={<ItemDetailContainer />} />
                         <Route path="/cart" element={<Cart />} />
+                        <Route path="/checkout" element={<Checkout />} />
                     </Routes>
                 </CustomCartContext>
               </CustomCategoryContext>

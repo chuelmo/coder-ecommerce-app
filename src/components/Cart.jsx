@@ -160,6 +160,20 @@ function ClearCart({handleClick}) {
     );
 }
 
+function CheckoutCart({handleClick}) {
+    return (
+        <div
+            style={{
+                position: "absolute",
+                bottom: -30,
+                right: 20
+            }}
+        >
+            <Button variant="contained" color="success" onClick={handleClick}>Finalizar compra</Button>
+        </div>
+    );
+}
+
 const Cart = () => {
     const navigate = useNavigate();
     const { items, clear } = useContext(CartContext);
@@ -254,6 +268,7 @@ const Cart = () => {
                                 </TableRow>
                             </TableBody>
                         </Table>
+                        <CheckoutCart handleClick={() => navigate("/checkout", { state: {total}})} />
                     </TableContainer>            
                 </div>
             </Box>
