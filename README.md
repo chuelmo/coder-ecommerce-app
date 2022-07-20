@@ -1,3 +1,10 @@
+# Último desafío antes del proyecto final - Item Collection II
+
+- Se le piden datos al cliente para generar la orden de compra.
+- La orden de compra se guarda en la colección "orders" en firebase.
+- Se utiliza react-hook-form para no reinventar la rueda, hace las validaciones del form de una forma muy simple y flexible.
+- En cuanto el cliente envía la orden, se vacía el carrito y se oculta el form.
+
 # Desafío itemCollection (Firebase)
 
 - Se crea la cuenta en Firebase

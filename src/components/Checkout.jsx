@@ -113,7 +113,7 @@ const Checkout = () => {
                 {!successOperation && (
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Grid container spacing={1} mb={1} mt={1}>
-                            <Grid item sm={12}>
+                            <Grid item xs={12}>
                                 <Controller
                                     name="name"
                                     control={control}
@@ -127,7 +127,7 @@ const Checkout = () => {
                                     </Alert>
                                 )}
                             </Grid>
-                            <Grid item sm={12}>
+                            <Grid item xs={12}>
                                 <Controller
                                     name="phone"
                                     control={control}
@@ -146,7 +146,7 @@ const Checkout = () => {
                                     </Alert>
                                 )}
                             </Grid>
-                            <Grid item sm={12}>
+                            <Grid item xs={12}>
                                 <Controller
                                     name="email"
                                     control={control}
@@ -169,7 +169,7 @@ const Checkout = () => {
                                     </Alert>
                                 )}
                             </Grid>
-                            <Grid item sm={12}>
+                            <Grid item xs={12}>
                                 <Controller
                                     name="confirmEmail"
                                     control={control}
