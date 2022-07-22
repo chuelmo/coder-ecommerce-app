@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
-import { collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
+import { collection, getDocs, getFirestore, query, where } from "firebase/firestore";
 import Box from "@mui/material/Box";
 import {Grow} from "@mui/material";
 import Typography from '@mui/material/Typography';
@@ -20,7 +20,9 @@ export default function ItemListContainer({ greeting }) {
     const [message, setMessage] = useState(null);
     const [title, setTitle] = useState(greeting);
 
-    useEffect( () => {
+    useEffect(() => {
+        const KEY_CODER_CATEGORIES = "KEY_CODER_CATEGORIES";
+        const categoriesLS = JSON.parse(localStorage.getItem(KEY_CODER_CATEGORIES));
         const get = async () => {
             if (state?.emptyCart) {
                 setMessage({
@@ -30,28 +32,24 @@ export default function ItemListContainer({ greeting }) {
             }
             setIsLoading(true);
             const productsRef = collection(db, "products");
-            let q = query(productsRef);
+            let q;
             if (params.id) {
-                const cat = doc(db, "categories", params.id);
-                try {
-                    const response = await getDoc(cat);
-                    if (response.exists()) {
-                        setTitle(`Ofertas de la categoría ${response.data().name}`);
-                        q = query(productsRef, where("category", "==", params.id));
-                    } else {
-                        setMessage({
-                            msg: 'No se encontró la categoría.',
-                            severity: 'warning'
-                        });
-                        navigate("/");
-                    }
-                } catch(_erro) {
+                let cat = null;
+                if (categoriesLS) {
+                    cat = categoriesLS.find(category => (category.id === params.id));
+                }
+                if (cat) {
+                    setTitle(`Ofertas de la categoría ${cat.name}`);
+                    q = query(productsRef, where("category", "==", params.id));
+                } else {
                     setMessage({
-                        msg: 'Ocurrió un error al buscar la categoría.',
-                        severity: 'error'
+                        msg: 'No se encontró la categoría.',
+                        severity: 'warning'
                     });
                     navigate("/");
                 }
+            } else {
+               q = query(productsRef);
             }
             try {
                 const response = await getDocs(q);

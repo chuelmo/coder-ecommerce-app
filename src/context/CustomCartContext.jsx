@@ -1,19 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CartContext from "./CartContext";
 
 const CustomCartContext = ({ children }) => {
+    const KEY_CODER_PRODUCTS = 'KEY_CODER_PRODUCTS';
+    const KEY_CODER_TOTAL_ITEMS = 'KEY_CODER_TOTAL_ITEMS';
     const [items, setItems] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
 
+    useEffect(() => {
+        const products = JSON.parse(localStorage.getItem(KEY_CODER_PRODUCTS));
+        if (products) {
+            setItems(products);
+        }
+        const total = localStorage.getItem(KEY_CODER_TOTAL_ITEMS);
+        if (total) {
+            setTotalItems(parseInt(total));
+        }
+    }, []);
+
     const addItem = (item, quantity) => {
         const findItem = items.find(i => i.item.id === item.id);
-        setTotalItems(prevState => findItem
-            ? prevState + (quantity - findItem.quantity)
-            : prevState + quantity
-        );
-        setItems(prevState => {
+        setTotalItems(prevState => {
+            let resp;
             if (findItem) {
-                return prevState.map((i) => {
+                resp = prevState + (quantity - findItem.quantity);
+            } else {
+                resp = prevState + quantity;
+            }
+            localStorage.setItem(KEY_CODER_TOTAL_ITEMS, resp);
+            return resp;
+        });
+        setItems(prevState => {
+            let resp;
+            if (findItem) {
+                resp = prevState.map((i) => {
                     if (i.item.id === item.id) {
                         return {
                             ...i,
@@ -24,17 +44,23 @@ const CustomCartContext = ({ children }) => {
                     }
                 });
             } else {
-                return [...prevState, {item, quantity}];
+                resp =  [...prevState, {item, quantity}];
             }
+            localStorage.setItem(KEY_CODER_PRODUCTS, JSON.stringify(resp));
+            return resp;
         });
     };
 
     const subtractItem = (itemId) => {
         const item = getItem(itemId);
         if (item) {
-            setTotalItems(prevState => prevState - 1);
+            setTotalItems(prevState => {
+                let resp = prevState - 1;
+                localStorage.setItem(KEY_CODER_TOTAL_ITEMS, resp);
+                return resp;
+            });
             setItems(prevState => {
-                return prevState.map((i) => {
+                let resp = prevState.map((i) => {
                     if (i.item.id === itemId) {
                         return {
                             ...i,
@@ -44,21 +70,33 @@ const CustomCartContext = ({ children }) => {
                         return i;
                     }
                 });
-            });
+                localStorage.setItem(KEY_CODER_PRODUCTS, JSON.stringify(resp));
+                return resp;
+            });  
         }
     };
 
     const removeItem = (itemId) => {
         const item = getItem(itemId);
         if (item) {
-            setTotalItems(prevState => prevState - item.quantity);
-            setItems(prevState => prevState.filter((i) => i.item.id !== itemId));
+            setTotalItems(prevState => {
+                let resp = prevState - item.quantity;
+                localStorage.setItem(KEY_CODER_TOTAL_ITEMS, resp);
+                return resp;
+            });
+            setItems(prevState => {
+                let resp = prevState.filter((i) => i.item.id !== itemId);
+                localStorage.setItem(KEY_CODER_PRODUCTS, JSON.stringify(resp));
+                return resp;
+            });
         }
     };
 
     const clear = () => {
         setTotalItems(0);
         setItems([]);
+        localStorage.removeItem(KEY_CODER_PRODUCTS);
+        localStorage.removeItem(KEY_CODER_TOTAL_ITEMS);
     };
 
     const isInCart = (itemId) => {
