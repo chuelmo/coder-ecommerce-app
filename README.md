@@ -73,14 +73,17 @@
 - Para todas las rutas no previstas tenemos una página 404.
 - Intentar entrar al detalle de un artículo que no existe /item/:id redirecciona a Home.
 - El formulario se valida utilizando la librería react-hook-form y la orden se guarda en firebase.
-- El componente ItemDetail muestra una galería de imágenes del producto y renderiza el <Item> con un parámetro que le dice que se muestre con los detalles, que se ocultan cuando el <Item> se renderiza en <ItemListContainer>
+- El componente ItemDetail muestra una galería de imágenes del producto y renderiza el &lt;Item&gt; con un parámetro que le dice que se muestre con los detalles, que se ocultan cuando el &lt;Item&gt; se renderiza en &lt;ItemListContainer&gt;
 - La ruta /cart que lleva al carrito solo está disponible cuando el carrito tiene algún item, de lo contrario no se podrá navegar hasta ella.
 - La vista del carrito en Desktop y Mobile es muy diferente, mientras que en Desktop los items se agrupan por categoría, con el total de items comprados en cada una, en mobile por simplicidad se muestra una tabla con 2 columnas con la información pertinente sin perder funcionalidad.
 - Hay solo dos maneras de llegar hasta el carrito:
   - Una es hacer click en el carrito en la barra de navegación cuando está disponible (aparece solo cuando el carrito tiene algo).
   - La otra es presionando el botón comprar cuando estamos viendo el detalle de un producto.
+- Para llegar hasta el detalle de un producto hay que hacer click en el ícono verde que hay en la imágen de cada uno de los productos.
 - El botón "Comprar" en el detalle del producto lleva hasta el carrito, si el carrito está vacío agrega una unidad del producto en cuestión.
 - Mientras la aplicación está esperando respuesta desde el backend, cuando se recuperan artículos, cuando se guarda la orden de compra, etc, hay sutiles animaciones (de material ui) que se muestran mientras dura la carga.
+- La aplicación es responsive
+- Toda la aplicación está envuelta en un theme personalizado, los cambios con respecto al theme original de material son mínimos, la idea es que desde ahí se pueda cambiar totalmente la apariencia del sitio.
 
 # Último desafío antes del proyecto final - Item Collection II
 
