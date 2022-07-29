@@ -1,19 +1,14 @@
 # Entrega del proyecto final
 
 - Según directivas del curso este proyecto necesita Firebase como backend, por lo tanto, para clonarlo y correrlo es necesario seguir estos pasos:
+
   1. Crear una cuenta en Firebase y crear un proyecto.
   2. Crear una base de datos para el proyecto con las siguientes colecciones:
-     - categories:
-       `code()`
-       {
-       key: number,
-       name: string
-       }
-     ```json
 
-     ```
+     - categories:
+       `code( { key: number, name: string } )`
      - products:
-       `code()`
+       ```json
        {
        articleImages: [
        {
@@ -30,11 +25,11 @@
        rating: number,
        stock: number
        }
-     ```json
+       ```
 
-     ```
+     ````
      - orders:
-       `code()`
+       ```json
        {
        buyer: {
        email: string,
@@ -52,9 +47,9 @@
        ...
        ]
        }
-     ```json
 
-     ```
+
+     ````
 
 # Último desafío antes del proyecto final - Item Collection II
 
