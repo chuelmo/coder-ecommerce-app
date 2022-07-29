@@ -6,50 +6,49 @@
   2. Crear una base de datos para el proyecto con las siguientes colecciones:
 
      - categories:
-       `code( { key: number, name: string } )`
+       ```json
+       {
+         "key": "number",
+         "name": "string"
+       }
+       ```
      - products:
        ```json
        {
-       articleImages: [
-       {
-       original: string (relative path in the site),
-       thumbnail: string (relative path in the site)
-       },
-       ...
-       ],
-       category: foreign key,
-       description: string,
-       name: string,
-       pictureUrl: string (relative path in the site),
-       price: number,
-       rating: number,
-       stock: number
+         "articleImages": [
+           {
+             "original": "string (relative path in the site)",
+             "thumbnail": "string (relative path in the site)"
+           }
+         ],
+         "category": "foreign key",
+         "description": "string",
+         "name": "string",
+         "pictureUrl": "string (relative path in the site)",
+         "price": "number",
+         "rating": "number",
+         "stock": "number"
        }
        ```
-
-     ````
      - orders:
        ```json
        {
-       buyer: {
-       email: string,
-       name: string,
-       phone: string
-       },
-       date: date,
-       items: [
-       {
-       id: foreign key,
-       name: string,
-       price: number,
-       quantity: number
-       },
-       ...
-       ]
+         "buyer": {
+           "email": "string",
+           "name": "string",
+           "phone": "string"
+         },
+         "date": "date",
+         "items": [
+           {
+             "id": "foreign key",
+             "name": "string",
+             "price": "number",
+             "quantity": "number"
+           }
+         ]
        }
-
-
-     ````
+       ```
 
 # Último desafío antes del proyecto final - Item Collection II
 
