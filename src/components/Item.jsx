@@ -19,13 +19,21 @@ import CartContext from "../context/CartContext";
 
 export default function Item({ itemDetail, isDetail = true }) {
     const navigate = useNavigate();
-    const { addItem, getItem } = useContext(CartContext);
+    const { addItem, getItem, totalItems } = useContext(CartContext);
     const [message, setMessage] = useState(null);
     const [realQuantity, setRealQuantity] = useState();
 
     useEffect(() => {
         setRealQuantity(getItem(itemDetail.id)?.quantity);
     }, [getItem, itemDetail.id]);
+
+    const comprar = () => {
+        if (totalItems === 0) {
+            addItem(itemDetail, 1);
+            setRealQuantity(1);
+        }
+        navigate('/cart');
+    };
 
     const onAdd = (quantity) => {
         if (itemDetail.id && quantity > 0) {
@@ -122,7 +130,7 @@ export default function Item({ itemDetail, isDetail = true }) {
                         </Grid>   
                         {isDetail && (
                             <Grid item mt={1} xs={12}>
-                                <Button onClick={() => navigate('/cart')} fullWidth variant="contained">COMPRAR</Button>
+                                <Button onClick={() => comprar()} fullWidth variant="contained">COMPRAR</Button>
                             </Grid>
                         )}
                     </Grid>

@@ -1,5 +1,10 @@
 # Entrega del proyecto final
 
+- En la rúbrica se solicita un gif mostrando el funcionamiento del proyecto o deployarlo, en mi caso el proyecto está deployado en dos plataformas distintas:
+
+  - [firebase](https://chuelmo-coder-react-37750.web.app/ "Sitio alojado en Firebase")
+  - [vercel](https://coder-ecommerce-app.vercel.app/ "Sitio alojado en Vercel")
+
 - Según directivas del curso este proyecto necesita Firebase como backend, por lo tanto, para clonarlo y correrlo es necesario seguir estos pasos:
 
   1. Crear una cuenta en Firebase y crear un proyecto.
@@ -49,6 +54,33 @@
          ]
        }
        ```
+
+  3. Correr npm install
+  4. Copiar el archivo .env.example como .env y llenarlo con la información correcta sacada de la configuración del proyecto en firebase. Listo, ya puedes correr y modificar el proyecto a tu antojo.
+
+- Uso de librerías
+
+  - [Material UI](https://mui.com/ "MUI: The React component library you always wanted")
+  - [React Router DOM](https://reactrouter.com/docs/en/v6/getting-started/overview "react-router-dom")
+  - [React Hook Form](https://react-hook-form.com/ "Performant, flexible and extensible forms with easy-to-use validation.")
+  - [React Image Gallery](https://www.npmjs.com/package/react-image-gallery "React image gallery is a React component for building image galleries and carousels")
+
+- El menú "Categorías" es dinámico, se carga desde el backend (collection categories)
+- Al elegir una categoría sólo se mostrarán los artículos de esa categoría.
+- Intentar cargar una categoría que no existe redirecciona a home (/)
+- No se pueden comprar más artículos de los que hay en stock.
+- No se pierde el carrito si se cierra el navegador (usamos localstorage)
+- Para todas las rutas no previstas tenemos una página 404.
+- Intentar entrar al detalle de un artículo que no existe /item/:id redirecciona a Home.
+- El formulario se valida utilizando la librería react-hook-form y la orden se guarda en firebase.
+- El componente ItemDetail muestra una galería de imágenes del producto y renderiza el <Item> con un parámetro que le dice que se muestre con los detalles, que se ocultan cuando el <Item> se renderiza en <ItemListContainer>
+- La ruta /cart que lleva al carrito solo está disponible cuando el carrito tiene algún item, de lo contrario no se podrá navegar hasta ella.
+- La vista del carrito en Desktop y Mobile es muy diferente, mientras que en Desktop los items se agrupan por categoría, con el total de items comprados en cada una, en mobile por simplicidad se muestra una tabla con 2 columnas con la información pertinente sin perder funcionalidad.
+- Hay solo dos maneras de llegar hasta el carrito:
+  - Una es hacer click en el carrito en la barra de navegación cuando está disponible (aparece solo cuando el carrito tiene algo).
+  - La otra es presionando el botón comprar cuando estamos viendo el detalle de un producto.
+- El botón "Comprar" en el detalle del producto lleva hasta el carrito, si el carrito está vacío agrega una unidad del producto en cuestión.
+- Mientras la aplicación está esperando respuesta desde el backend, cuando se recuperan artículos, cuando se guarda la orden de compra, etc, hay sutiles animaciones (de material ui) que se muestran mientras dura la carga.
 
 # Último desafío antes del proyecto final - Item Collection II
 

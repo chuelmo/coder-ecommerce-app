@@ -11,6 +11,7 @@ import CustomCartContext from "./context/CustomCartContext";
 import Cart from "./components/Cart";
 import CustomCategoryContext from "./context/CustomCategoryContext";
 import Checkout from "./components/Checkout";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
                         <Route path="/item/:id" element={<ItemDetailContainer />} />
                         <Route path="/cart" element={<Cart />} />
                         <Route path="/checkout" element={<Checkout />} />
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </CustomCartContext>
               </CustomCategoryContext>
